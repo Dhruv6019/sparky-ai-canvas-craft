@@ -1,15 +1,13 @@
 
 import React from 'react';
-import ChatInterface from '../components/ChatInterface';
-import HolographicOrb from '../components/HolographicOrb';
+import VoiceAssistant from '../components/VoiceAssistant';
+import ParticleBackground from '../components/ParticleBackground';
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden flex items-center justify-center">
-      <div className="w-full max-w-sm mx-auto relative">
-        <ChatInterface />
-        <HolographicOrb />
-      </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-purple-900 relative overflow-hidden">
+      <ParticleBackground />
+      <VoiceAssistant />
     </div>
   );
 };

@@ -70,6 +70,7 @@ export default {
 			},
 			backgroundImage: {
 				'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+				'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
 				'rainbow': 'conic-gradient(from 0deg, #ff0080, #00ffff, #8000ff, #ff8000, #ff0080)',
 			},
 			keyframes: {
@@ -92,16 +93,16 @@ export default {
 				'fade-in': {
 					'0%': {
 						opacity: '0',
-						transform: 'translateY(10px)'
+						transform: 'translateY(20px) scale(0.95)'
 					},
 					'100%': {
 						opacity: '1',
-						transform: 'translateY(0)'
+						transform: 'translateY(0) scale(1)'
 					}
 				},
 				'scale-in': {
 					'0%': {
-						transform: 'scale(0.95)',
+						transform: 'scale(0.8)',
 						opacity: '0'
 					},
 					'100%': {
@@ -121,8 +122,14 @@ export default {
 					'0%, 100%': {
 						transform: 'translateY(0px) rotate(0deg)',
 					},
+					'25%': {
+						transform: 'translateY(-10px) rotate(90deg)',
+					},
 					'50%': {
-						transform: 'translateY(-10px) rotate(180deg)',
+						transform: 'translateY(-20px) rotate(180deg)',
+					},
+					'75%': {
+						transform: 'translateY(-10px) rotate(270deg)',
 					}
 				},
 				'holographic': {
@@ -134,16 +141,38 @@ export default {
 						transform: 'rotate(360deg)',
 						filter: 'hue-rotate(360deg)',
 					}
+				},
+				'voice-pulse': {
+					'0%, 100%': {
+						transform: 'scale(1)',
+						opacity: '1'
+					},
+					'50%': {
+						transform: 'scale(1.1)',
+						opacity: '0.8'
+					}
+				},
+				'ripple': {
+					'0%': {
+						transform: 'scale(0)',
+						opacity: '1'
+					},
+					'100%': {
+						transform: 'scale(2)',
+						opacity: '0'
+					}
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
 				'accordion-up': 'accordion-up 0.2s ease-out',
-				'fade-in': 'fade-in 0.5s ease-out',
-				'scale-in': 'scale-in 0.3s ease-out',
+				'fade-in': 'fade-in 0.6s ease-out',
+				'scale-in': 'scale-in 0.4s ease-out',
 				'glow': 'glow 2s ease-in-out infinite',
-				'float': 'float 3s ease-in-out infinite',
+				'float': 'float 6s ease-in-out infinite',
 				'holographic': 'holographic 8s linear infinite',
+				'voice-pulse': 'voice-pulse 1.5s ease-in-out infinite',
+				'ripple': 'ripple 1s ease-out infinite',
 			}
 		}
 	},
