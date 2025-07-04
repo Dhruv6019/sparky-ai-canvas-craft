@@ -1,6 +1,6 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { Send, Mic, Paperclip, Sparkles } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import MessageBubble from './MessageBubble';
@@ -14,16 +14,10 @@ interface Message {
 }
 
 const ChatInterface = () => {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      text: 'Hello! I\'m your AI assistant. How can I help you today?',
-      isUser: false,
-      timestamp: new Date(),
-    }
-  ]);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [inputText, setInputText] = useState('');
   const [isTyping, setIsTyping] = useState(false);
+  const [showWelcome, setShowWelcome] = useState(true);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
@@ -36,6 +30,10 @@ const ChatInterface = () => {
 
   const handleSendMessage = async () => {
     if (!inputText.trim()) return;
+
+    if (showWelcome) {
+      setShowWelcome(false);
+    }
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -52,7 +50,7 @@ const ChatInterface = () => {
     setTimeout(() => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: 'Thank you for your message! I\'m processing your request and will provide you with the best possible assistance.',
+        text: 'I understand your request. How can I assist you further?',
         isUser: false,
         timestamp: new Date(),
       };
@@ -69,62 +67,60 @@ const ChatInterface = () => {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto h-[600px] flex flex-col">
-      {/* Chat Container */}
-      <div className="flex-1 backdrop-blur-xl bg-white/10 rounded-t-3xl border border-white/20 shadow-2xl overflow-hidden">
-        {/* Messages Area */}
-        <div className="h-full flex flex-col">
-          <div className="flex-1 overflow-y-auto p-6 space-y-4 scrollbar-thin scrollbar-thumb-purple-500/50 scrollbar-track-transparent">
-            {messages.map((message, index) => (
-              <MessageBubble
-                key={message.id}
-                message={message}
-                isLast={index === messages.length - 1}
-              />
-            ))}
-            {isTyping && <TypingIndicator />}
-            <div ref={messagesEndRef} />
+    <div className="h-screen flex flex-col relative">
+      {/* Status bar simulation */}
+      <div className="flex justify-between items-center px-6 py-3 text-white text-sm font-medium">
+        <div>9:41</div>
+        <div className="flex space-x-1">
+          <div className="flex space-x-1">
+            <div className="w-1 h-3 bg-white rounded-full"></div>
+            <div className="w-1 h-3 bg-white rounded-full"></div>
+            <div className="w-1 h-3 bg-white rounded-full"></div>
+            <div className="w-1 h-3 bg-white/50 rounded-full"></div>
+          </div>
+          <div className="w-6 h-3 border border-white rounded-sm">
+            <div className="w-4 h-1.5 bg-white rounded-xs m-0.5"></div>
           </div>
         </div>
       </div>
 
-      {/* Input Area */}
-      <div className="backdrop-blur-xl bg-white/10 rounded-b-3xl border border-t-0 border-white/20 p-6">
-        <div className="flex items-center space-x-4">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-gray-400 hover:text-purple-400 hover:bg-purple-500/20 transition-all duration-300"
-          >
-            <Paperclip className="w-5 h-5" />
-          </Button>
-          
-          <div className="flex-1 relative">
-            <Input
-              value={inputText}
-              onChange={(e) => setInputText(e.target.value)}
-              onKeyPress={handleKeyPress}
-              placeholder="Type your message..."
-              className="bg-white/10 border-white/20 text-white placeholder-gray-400 rounded-2xl pr-12 focus:ring-2 focus:ring-purple-500/50 focus:border-purple-500/50 transition-all duration-300"
-            />
-            <Sparkles className="w-4 h-4 text-purple-400 absolute right-3 top-1/2 transform -translate-y-1/2 animate-pulse" />
-          </div>
+      {/* Welcome message */}
+      {showWelcome && (
+        <div className="absolute top-24 left-1/2 transform -translate-x-1/2 z-10">
+          <p className="text-white/80 text-lg font-light">Hi, how can I help you?</p>
+        </div>
+      )}
 
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-gray-400 hover:text-purple-400 hover:bg-purple-500/20 transition-all duration-300"
-          >
-            <Mic className="w-5 h-5" />
-          </Button>
+      {/* Messages area */}
+      <div className="flex-1 overflow-y-auto px-4 pt-8">
+        {messages.map((message, index) => (
+          <MessageBubble
+            key={message.id}
+            message={message}
+            isLast={index === messages.length - 1}
+          />
+        ))}
+        {isTyping && <TypingIndicator />}
+        <div ref={messagesEndRef} />
+      </div>
 
+      {/* Input area */}
+      <div className="p-4 pb-8">
+        <div className="flex items-center space-x-3 bg-gray-900/50 rounded-full px-4 py-2 backdrop-blur-sm border border-gray-800">
+          <Input
+            value={inputText}
+            onChange={(e) => setInputText(e.target.value)}
+            onKeyPress={handleKeyPress}
+            placeholder="Message"
+            className="bg-transparent border-none text-white placeholder-gray-400 focus:ring-0 focus-visible:ring-0 focus-visible:ring-offset-0"
+          />
           <Button
             onClick={handleSendMessage}
             disabled={!inputText.trim()}
-            className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white rounded-2xl px-6 py-2 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            size="icon"
+            className="bg-transparent hover:bg-gray-700/50 text-gray-400 hover:text-white h-8 w-8 rounded-full"
           >
-            <Send className="w-4 h-4 mr-2" />
-            Send
+            <Send className="w-4 h-4" />
           </Button>
         </div>
       </div>

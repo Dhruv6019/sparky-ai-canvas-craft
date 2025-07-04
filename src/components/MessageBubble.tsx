@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Bot, User } from 'lucide-react';
 
 interface Message {
   id: string;
@@ -17,52 +16,18 @@ interface MessageBubbleProps {
 const MessageBubble: React.FC<MessageBubbleProps> = ({ message, isLast }) => {
   return (
     <div
-      className={`flex items-start space-x-3 animate-fade-in ${
-        message.isUser ? 'flex-row-reverse space-x-reverse' : ''
+      className={`flex mb-4 animate-fade-in ${
+        message.isUser ? 'justify-end' : 'justify-start'
       }`}
     >
-      {/* Avatar */}
       <div
-        className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center ${
+        className={`max-w-[80%] px-4 py-3 rounded-2xl ${
           message.isUser
-            ? 'bg-gradient-to-r from-blue-500 to-purple-500'
-            : 'bg-gradient-to-r from-purple-500 to-pink-500'
-        } shadow-lg animate-scale-in`}
-      >
-        {message.isUser ? (
-          <User className="w-5 h-5 text-white" />
-        ) : (
-          <Bot className="w-5 h-5 text-white" />
-        )}
-      </div>
-
-      {/* Message Content */}
-      <div
-        className={`max-w-[70%] ${
-          message.isUser ? 'text-right' : 'text-left'
+            ? 'bg-blue-600 text-white rounded-br-md'
+            : 'bg-gray-800/70 text-white rounded-bl-md backdrop-blur-sm border border-gray-700/50'
         }`}
       >
-        <div
-          className={`inline-block p-4 rounded-2xl shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] ${
-            message.isUser
-              ? 'bg-gradient-to-r from-blue-500/80 to-purple-500/80 text-white rounded-br-lg'
-              : 'bg-white/20 text-white border border-white/20 rounded-bl-lg'
-          }`}
-        >
-          <p className="text-sm leading-relaxed">{message.text}</p>
-        </div>
-        
-        {/* Timestamp */}
-        <div
-          className={`mt-1 text-xs text-gray-400 ${
-            message.isUser ? 'text-right' : 'text-left'
-          }`}
-        >
-          {message.timestamp.toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
-          })}
-        </div>
+        <p className="text-sm leading-relaxed">{message.text}</p>
       </div>
     </div>
   );
