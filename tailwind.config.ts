@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -123,13 +124,13 @@ export default {
 						transform: 'translateY(0px) rotate(0deg)',
 					},
 					'25%': {
-						transform: 'translateY(-10px) rotate(90deg)',
+						transform: 'translateY(-10px) rotate(1deg)',
 					},
 					'50%': {
-						transform: 'translateY(-20px) rotate(180deg)',
+						transform: 'translateY(-20px) rotate(0deg)',
 					},
 					'75%': {
-						transform: 'translateY(-10px) rotate(270deg)',
+						transform: 'translateY(-10px) rotate(-1deg)',
 					}
 				},
 				'holographic': {
@@ -148,8 +149,8 @@ export default {
 						opacity: '1'
 					},
 					'50%': {
-						transform: 'scale(1.1)',
-						opacity: '0.8'
+						transform: 'scale(1.2)',
+						opacity: '0.7'
 					}
 				},
 				'ripple': {
@@ -158,8 +159,54 @@ export default {
 						opacity: '1'
 					},
 					'100%': {
-						transform: 'scale(2)',
+						transform: 'scale(3)',
 						opacity: '0'
+					}
+				},
+				'morphing': {
+					'0%, 100%': {
+						borderRadius: '50%',
+						transform: 'rotate(0deg)'
+					},
+					'25%': {
+						borderRadius: '40% 60% 60% 40%',
+						transform: 'rotate(90deg)'
+					},
+					'50%': {
+						borderRadius: '60% 40% 40% 60%',
+						transform: 'rotate(180deg)'
+					},
+					'75%': {
+						borderRadius: '40% 60% 40% 60%',
+						transform: 'rotate(270deg)'
+					}
+				},
+				'particle-float': {
+					'0%, 100%': {
+						transform: 'translate(0, 0) rotate(0deg)',
+						opacity: '0.8'
+					},
+					'33%': {
+						transform: 'translate(30px, -30px) rotate(120deg)',
+						opacity: '1'
+					},
+					'66%': {
+						transform: 'translate(-20px, 20px) rotate(240deg)',
+						opacity: '0.6'
+					}
+				},
+				'energy-surge': {
+					'0%': {
+						transform: 'scale(1)',
+						filter: 'brightness(1) saturate(1)'
+					},
+					'50%': {
+						transform: 'scale(1.1)',
+						filter: 'brightness(1.3) saturate(1.5)'
+					},
+					'100%': {
+						transform: 'scale(1)',
+						filter: 'brightness(1) saturate(1)'
 					}
 				}
 			},
@@ -172,7 +219,10 @@ export default {
 				'float': 'float 6s ease-in-out infinite',
 				'holographic': 'holographic 8s linear infinite',
 				'voice-pulse': 'voice-pulse 1.5s ease-in-out infinite',
-				'ripple': 'ripple 1s ease-out infinite',
+				'ripple': 'ripple 1.5s ease-out infinite',
+				'morphing': 'morphing 8s ease-in-out infinite',
+				'particle-float': 'particle-float 4s ease-in-out infinite',
+				'energy-surge': 'energy-surge 2s ease-in-out infinite',
 			}
 		}
 	},
